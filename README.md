@@ -77,3 +77,4 @@ As a user I should be able to view a chart which displays the number of upcoming
 Scenarios
 
 Scenario 1: Show a chart with the number of upcoming events in each city Given the user has not selected a city When the user wants to compare events between cities Then they should be able to access a chart with the number of upcoming events in each city
+
