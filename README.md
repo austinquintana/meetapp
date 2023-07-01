@@ -6,6 +6,13 @@ test-driven development (TDD) technique. The application uses the Google
 Calendar API to fetch upcoming events.
 
 
+How will this app use serverless functions? 
+API calls: We'd use a function that directly calls the google calender API whenever a client makes a request. It would be event-driven, meaning it would only be triggered by the user requesting event data
+Data processing: formatting the data to match the needs of the application, filtering out unnecessary information
+User authentication: a function could be invoked when a user tries to log in, checking their credentials against a database and returning an authentication token
+Notifcation/Reminders: used to schedule and send notifications or remijnders to users for their upcoming events 
+
+
 Key Features:
 ● Filter Events by City.
 ● Show/Hide Event Details.
