@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/austinquintana/meetapp.git/static/css/main.073c9b0a.css",
+    "main.js": "/austinquintana/meetapp.git/static/js/main.004f4b0f.js",
+    "static/js/787.8ee67097.chunk.js": "/austinquintana/meetapp.git/static/js/787.8ee67097.chunk.js",
+    "service-worker.js": "/austinquintana/meetapp.git/service-worker.js",
+    "static/media/logo.svg": "/austinquintana/meetapp.git/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
+    "index.html": "/austinquintana/meetapp.git/index.html",
+    "main.073c9b0a.css.map": "/austinquintana/meetapp.git/static/css/main.073c9b0a.css.map",
+    "main.004f4b0f.js.map": "/austinquintana/meetapp.git/static/js/main.004f4b0f.js.map",
+    "787.8ee67097.chunk.js.map": "/austinquintana/meetapp.git/static/js/787.8ee67097.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.004f4b0f.js"
+  ]
+}
