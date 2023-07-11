@@ -73,13 +73,13 @@ functions:
     events:
      - httpApi:
          method: GET
-         path: /get-auth-url
+         path: /api/get-auth-url
   getAccessToken:
     handler: handler.getAccessToken
     events:
       - httpApi:
           method: GET
-          path: /token/{code}
+          path: /api/token/{code}
           
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
