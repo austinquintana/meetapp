@@ -79,7 +79,8 @@ functions:
     events:
       - httpApi:
           method: GET
-          path: /api/token/{code}
+          path: /api/token  
+  
           
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
