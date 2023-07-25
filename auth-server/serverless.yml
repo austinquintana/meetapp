@@ -67,21 +67,27 @@ provider:
 functions:
   getAuthURL:
     handler: handler.getAuthURL
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
+    #    The following are a few example events you can configure
+    #    NOTE: Please make sure to change your handler code to work with those events
+    #    Check the event documentation for details
     events:
-     - httpApi:
-         method: GET
-         path: /api/get-auth-url
+      - httpApi:
+          method: GET
+          path: /api/get-auth-url
+          cors: true
   getAccessToken:
     handler: handler.getAccessToken
     events:
       - httpApi:
           method: GET
-          path: /api/token  
-  
-          
+          path: /api/token
+          cors: true
+  getCalenderEvents:
+    handler: handler.getCalenderEvents
+    events: 
+      - httpApi: 
+          method: GET
+          path: /api/get-events/{access_token}
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
