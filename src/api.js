@@ -1,4 +1,6 @@
 import mockData from './mock-data';
+import axios from "axios";
+import NProgress from "nprogress";
 
 /**
  *
@@ -76,8 +78,19 @@ export const getAccessToken = async () => {
  * This function will fetch the list of all events
  */
 export const getEvents = async () => {
-  if (window.location.href.startsWith('http://localhost')) {
+  NProgress.start();
+
+  if (window.location.href.startsWith("http://localhost")) {
+    NProgress.done();
     return mockData;
+  }
+
+  //Access local storage when user is offline
+  if (!navigator.onLine) {
+    const data = localStorage.getItem("lastEvents");
+    NProgress.done();
+    // console.log("offline data: ", data);
+    return data ? JSON.parse(data).events : [];
   }
 
   const token = await getAccessToken();
@@ -85,13 +98,19 @@ export const getEvents = async () => {
   if (token) {
     removeQuery();
     const url =
-      'https://l2lb8i8ve3.execute-api.us-west-2.amazonaws.com/api/get-events' +
-      '/' +
+      "https://l2lb8i8ve3.execute-api.us-west-2.amazonaws.com/api/get-events" +
+      "/" +
       token;
-    const response = await fetch(url);
-    const result = await response.json();
-    if (result) {
-      return result.events;
-    } else return null;
+    const result = await axios.get(url);
+    if (result.data) {
+      var locations = extractLocations(result.data.events);
+      localStorage.setItem("lastEvents", JSON.stringify(result.data));
+      localStorage.setItem("locations", JSON.stringify(locations));
+    }
+    NProgress.done();
+    return result.data.events;
   }
 };
+
+
+
