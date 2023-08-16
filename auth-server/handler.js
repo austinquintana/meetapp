@@ -97,7 +97,7 @@ module.exports.getAccessToken = async (event) => {
   .then((results) => {
     return {
       statusCode: 200,
-      headers: {
+       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },

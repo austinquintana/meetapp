@@ -42,7 +42,7 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const response = await fetch(
-    'https://l2lb8i8ve3.execute-api.us-west-2.amazonaws.com/api/token' +
+    'https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/token' +
       '/' +
       encodeCode
   );
@@ -61,7 +61,7 @@ export const getAccessToken = async () => {
     const code = await searchParams.get('code');
     if (!code) {
       const response = await fetch(
-        'https://l2lb8i8ve3.execute-api.us-west-2.amazonaws.com/api/get-auth-url'
+        'https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/get-auth-url'
       );
       const result = await response.json();
       const { authUrl } = result;
@@ -80,10 +80,10 @@ export const getAccessToken = async () => {
 export const getEvents = async () => {
   NProgress.start();
 
-  if (window.location.href.startsWith("http://localhost")) {
-    NProgress.done();
-    return mockData;
-  }
+  // if (window.location.href.startsWith("http://localhost")) {
+  //   NProgress.done();
+  //   return mockData;
+  // }
 
   //Access local storage when user is offline
   if (!navigator.onLine) {
@@ -98,7 +98,7 @@ export const getEvents = async () => {
   if (token) {
     removeQuery();
     const url =
-      "https://l2lb8i8ve3.execute-api.us-west-2.amazonaws.com/api/get-events" +
+      "https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/get-events" +
       "/" +
       token;
     const result = await axios.get(url);
