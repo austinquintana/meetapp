@@ -42,11 +42,12 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const response = await fetch(
-    'https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/token' + '?code=' + encodeCode
+    'https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/token' +
+      '/' +
+      encodeCode
   );
   const { access_token } = await response.json();
   access_token && localStorage.setItem('access_token', access_token);
-
   return access_token;
 };
 

@@ -83,7 +83,7 @@ functions:
     events:
       - httpApi:
           method: GET
-          path: /api/token
+          path: /api/token/{code}
   getCalenderEvents:
     handler: handler.getCalenderEvents
     events: 

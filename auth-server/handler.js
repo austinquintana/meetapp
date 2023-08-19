@@ -40,7 +40,7 @@ module.exports.getAuthURL = async () => {
 
 module.exports.getAccessToken = async (event) => {
   // Decode authorization code extracted from the URL query
-  const code = decodeURIComponent(`${event.queryStringParameters.code}`);
+  const code = decodeURIComponent(`${event.pathParameters.code}`);
   try {
     const res = await oAuth2Client.getToken(code);
 
