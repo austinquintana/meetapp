@@ -42,9 +42,7 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const response = await fetch(
-    'https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/token' +
-      '/' +
-      encodeCode
+    'https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/token' + '?code=' + encodeCode
   );
   const { access_token } = await response.json();
   access_token && localStorage.setItem('access_token', access_token);
@@ -80,10 +78,10 @@ export const getAccessToken = async () => {
 export const getEvents = async () => {
   NProgress.start();
 
-  // if (window.location.href.startsWith("http://localhost")) {
-  //   NProgress.done();
-  //   return mockData;
-  // }
+  if (window.location.href.startsWith("http://localhost")) {
+    NProgress.done();
+    return mockData;
+  }
 
   //Access local storage when user is offline
   if (!navigator.onLine) {
