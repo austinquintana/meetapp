@@ -1,5 +1,3 @@
-"use strict";
-
 const { google } = require("googleapis");
 // const { concatenateToResponse } = require("workbox-streams");
 const calendar = google.calendar("v3");
@@ -40,7 +38,7 @@ module.exports.getAuthURL = async () => {
 
 module.exports.getAccessToken = async (event) => {
   // Decode authorization code extracted from the URL query
-  const code = decodeURIComponent(`${event.pathParameters.code}`);
+  const code = decodeURIComponent(`${event.queryStringParameters.code}`);
   try {
     const res = await oAuth2Client.getToken(code);
 
@@ -108,6 +106,10 @@ module.exports.getAccessToken = async (event) => {
     // Handle error
     return {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
       body: JSON.stringify(err),
     };
   });

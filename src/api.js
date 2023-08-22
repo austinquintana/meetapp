@@ -1,6 +1,7 @@
 import mockData from './mock-data';
 import axios from "axios";
 import NProgress from "nprogress";
+const API_URL = "https://pi3jskbqd4.execute-api.us-east-1.amazonaws.com"
 
 /**
  *
@@ -42,9 +43,7 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const response = await fetch(
-    'https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/token' +
-      '/' +
-      encodeCode
+    `${API_URL}/api/token?code=${encodeCode}`
   );
   const { access_token } = await response.json();
   access_token && localStorage.setItem('access_token', access_token);
@@ -60,7 +59,7 @@ export const getAccessToken = async () => {
     const code = await searchParams.get('code');
     if (!code) {
       const response = await fetch(
-        'https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/get-auth-url'
+        `${API_URL}/api/get-auth-url`
       );
       const result = await response.json();
       const { authUrl } = result;
@@ -96,10 +95,7 @@ export const getEvents = async () => {
 
   if (token) {
     removeQuery();
-    const url =
-      "https://2b6a19eef8.execute-api.us-west-2.amazonaws.com/api/get-events" +
-      "/" +
-      token;
+    const url = `${API_URL}/api/get-events/${token}`
     const result = await axios.get(url);
     if (result.data) {
       var locations = extractLocations(result.data.events);
