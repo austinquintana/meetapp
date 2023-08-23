@@ -1,80 +1,99 @@
-# Meet App
+## Meet App
 
-Objective
-To build a serverless, progressive web application (PWA) with React using a
-test-driven development (TDD) technique. The application uses the Google
-Calendar API to fetch upcoming events.
+This is an app built using React on the frontend, and AWS Lambda on the backend. It displays a list of events, which is fetching the events from Google Calendar API, that can be filtered by city or number of events.
+
+## Prerequisites
+
+- Install Node.js
+
+## Installation
+
+1. Clone the repository.
+2. Navigate to the project directory in the terminal.
+3. Run `npm install` to install the necessary dependencies.
+
+## Technologies Used
+
+- React
+- Jest
+- React testing library
+- Puppeteer
+
+## Development server
+
+Run `npm run start` for a dev server. Navigate to `http://localhost:3000/meet_app`. The application will automatically reload if you change any of the source files.
+
+## Build
+
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Deployment
+
+Run `npm run deploy` to deploy to github pages
 
 
-How will this app use serverless functions? 
-API calls: We'd use a function that directly calls the google calender API whenever a client makes a request. It would be event-driven, meaning it would only be triggered by the user requesting event data
-Data processing: formatting the data to match the needs of the application, filtering out unnecessary information
-User authentication: a function could be invoked when a user tries to log in, checking their credentials against a database and returning an authentication token
-Notifcation/Reminders: used to schedule and send notifications or remijnders to users for their upcoming events 
 
+## Meet App and their user stories and features
 
-Key Features:
-● Filter Events by City.
-● Show/Hide Event Details.
-● Specify Number of Events.
-● Use the App When Offline.
-● Add an App Shortcut to the Home Screen.
-● Display Charts Visualizing Event Details.
+FEATURE 1: FILTER EVENTS BY CITY
 
-USER STORIES:
+As a user, I should be able to filter events by city. So that I can see a list of events taking place in that city.
 
-Feature 1: Filter Events by City
-User story
+- **Scenario 1:** User opens the app and has searched a city.
 
-As a user I should be able to filter events by city So that I can see the list of events that take place in that city
+- **Given** the main page with search option has been opened, **when** the user entered a city, **then** they should be shown upcoming events for that city.
 
-Scenarios
+- **Scenario 2:** User opens the app and hasn't searched a city.
 
-Scenario 1: When user hasn't searched for a city, show upcoming events from all cities. Given user hasn’t searched for any city When the user opens the app Then the user should see a list of all upcoming events
+- **Given** the main page with search option has been opened, **when** the user opens the app, **then** they should be shown a list of all events for all the cities available.
 
-Scenario 2: User should see a list of suggestions when they search for a city. Given the main page is open When user starts typing in the city textbox Then the user should see a list of cities (suggestions) that match what they’ve typed
+- **Scenario 3:** User can select a city from the suggested list.
 
-Scenario 3: User can select a city from the suggested list. Given the user was typing “Berlin” in the city textbox And the list of suggested cities is showing When the user selects a city (e.g., “Berlin, Germany”) from the list Then their city should be changed to that city (i.e., “Berlin, Germany”) And the list of suggestions should disappear And the user should receive a list of upcoming events in that city
+- **Given** user was typing "Berlin" in the city textbox _AND_ the list of suggested cities is showing, **when** the user selects a city (e.g., "Berlin, Germany") from the list, **then** their city should be changed to that city (i.e., "Berlin, Germany") _AND_ the user should receive a list of upcoming events in that city.
 
-Feature 2: Show/Hide an Event's Details
-User story
+FEATURE 2: SHOW/HIDE AN EVENT'S DETAILS
 
-As a user I should be able to show and hide event details So that I can get more information specifically about events of interest.
+As a user I should be able to show or hide event details, after I have selected a city I wanted to look up the events for.
 
-Scenarios
+- **Scenario 1:** An event element is collapsed by default
+  - **Given** the user first opens the app **when** the user recieves the full list of events (specific for the city or all events), **then** all events will colapse by default.
+- **Scenario 2:** User can expand an event to see its details
+  - **Given** the user gets a list of events, **when** a user selects an event's details, **then** the details will show up for that choosen event.
+- **Scenario 3:** User can collapse an event to hide its details
+  - **Given** the user sees the details of an event, **when** the user presses a button to hide event's details, **then** the details of that even will be hidden.
 
-Scenario 1: An event element is collapsed by default Given the user has just selected the city for which they wanted to browse events When the user receives the list of events in that city Then all event elements should be collapsed by default
+FEATURE 3: SPECIFY NUMBER OF EVENTS
 
-Scenario 2: User can expand an event to see its details Given the user has identified an event of interest When the user clicks on that event element Then the element should expand And display its details
+As a user, I should be able to specify the number of displayed events, after I have selected the number of displayed events.
 
-Scenario 3: User can collapse an event to hide its details Given the user has obtained all information they need about the event When the user clicks on that event element Then the element should collapse And hide its details again
+- **Scenario 1:** When user hasn't specified a number, 32 is the default number.
+  - **Given** the user hasn't specified or filtered the number of events, **when** the user sees the list of events **then** the default number of displayed events will be 32.
+- **Scenario 2:** User can change the number of events they want to see.
+  - **Given** the user has events displayed, **when** the user chooses to change the number of events displayed, **then** the number of events displayed will update to the number the user selected.
 
-Feature 3: Specify Number of Events
-User story
+FEATURE 4: USE THE APP WHEN OFFLINE
 
-As a user I should be able to specify the number of displayed events So that I have control about how many events I want to see.
+As a user, I should be able to get events information when offline, that was fetched while having internet connection.
 
-Scenarios
+- **Scenario 1:** Show cached data when there's no internet connection.
+  - **Given** the user has no internet connection, **when** the user is accessing the app, **then** cached data, stored inside the app, will be provided to the user.
+- **Scenario 2:** Show error when user changes the settings (city, time range).
+  - **Given** the user has no internet connection, **when** the user is trying to access new event information (change the city, etc.), **then** the app will show an error.
 
-Scenario 1: When user hasn’t specified a number, 32 is the default number Given the user has not specified the number of events they want to see per city When the user receives the list of events in that city Then a number of 32 events should be displayed by default
+FEATURE 5: ADD AN APP SHORTCUT TO THE HOME SCREEN
 
-Scenario 2: User can change the number of events they want to see Given the user received a list of 32 events per selected city When the user wants to see more or less events per city Then they should be able to modify the event number
+As a user I should be able to add a shortcut of the app to the home screen, so I can access the app quicker.
 
-Feature 4: Use the App When Offline
-User story
+- **Scenario 1:** User can install the meet app as a shortcut on their device home screen.
+  - **Given** the user wants to install the app, **when** the user selects to install the app as a shortcut, **then** a shortcut is created on users homescreen.
 
-As a user I should be able to use the app when offline So that I can access event information even when there is not internet available.
+FEATURE 6: DISPLAY CHARTS VISUALIZING EVENT DETAILS
 
-Scenarios
+As a user, I would like to be able to see a chart showing the upcoming events in each city so that I know what events are organized in which city.
 
-Scenario 1: Show cached data when there’s no internet connection Given the user lost internet connection When the user accesses the app Then chached data should still be available And an error message should appear
+- **Scenario 1:** Show a chart with the number of upcoming events in each city.
+  - **Given** the user is in the events detail page, **when** the user clicks the button to see a chart of those events in all the cities as a comparison, **then** a chart with the number of upcoming events for every city, will be shown to the user.
 
-Feature 5: Data visualization
-User story
+**USE OF SERVERLESS FUNCTION IN THE MEET APP**
 
-As a user I should be able to view a chart which displays the number of upcoming events in each city So that I can quickly identify and compare the number of events of different cities.
-
-Scenarios
-
-Scenario 1: Show a chart with the number of upcoming events in each city Given the user has not selected a city When the user wants to compare events between cities Then they should be able to access a chart with the number of upcoming events in each city
-
+- The Meet App can use serverless functions for event notifications, real-time data processing, user authentication, event recommendations, , and scalability. By leveraging serverless technology, the app can efficiently handle backend processes, provide personalized experiences, and scale according to user demand.
